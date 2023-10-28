@@ -1,0 +1,11 @@
+{
+  "name": "Ingestion pod",
+  "description": "Ingestion pod",
+  "parameters": [
+    {
+      "name": "configuration_json_file",
+      "label": "configuration json file",
+      "helpText": "configuration json file to read from."
+    }
+  ]
+}

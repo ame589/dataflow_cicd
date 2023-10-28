@@ -1,0 +1,35 @@
+# .gcloudignore for Python projects
+
+# Exclude virtual environment files
+venv/
+
+# Exclude compiled Python files
+__pycache__/
+
+# Exclude local development files
+*.pyc
+*.pyo
+*.pyd
+
+# Exclude test files and directories
+tests/
+test_*
+
+# Exclude common version control files
+.git/
+.gitignore
+
+# Exclude editor-specific files
+.vscode/
+.idea/
+
+# Exclude build and distribution directories
+build/
+dist/
+
+# Exclude Python package metadata files
+*.egg-info/
+*.egg/
+
+# Exclude Jupyter Notebook checkpoints
+.ipynb_checkpoints/

@@ -1,0 +1,4 @@
+avro==1.11.2
+apache-beam[gcp]==2.49.0
+google~=3.0.0
+setuptools~=57.0.0

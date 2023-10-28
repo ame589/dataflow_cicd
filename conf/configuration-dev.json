@@ -1,0 +1,27 @@
+{
+    "job-configs":
+    {
+        "project": "your-project",
+        "save_main_session": true,
+        "sdk_location": "container",
+        "streaming": true,
+        "log_level": "INFO"
+    },
+    "entities": 
+    [
+        {
+            "account": {
+                "deduplicationAttributeId": "messageId",
+                "topic": "account-topic",
+                "dlqTopic": "account-dlq-topic",
+                "schema_id": "account-topic-schema",
+                "gcsEventSubscription": "account-topic-sub",
+                "source_bucket": "your-source-bucket-id",
+                "target_project": "your-target-project-id",
+                "target_bucket": "your-target-bucket-id",
+                "input_file_split_char": ":",
+                "input_file_split_char_entity_position": 2
+            }
+        }
+    ]
+}

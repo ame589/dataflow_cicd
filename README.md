@@ -1,10 +1,10 @@
 # Dataflow Job: c360-ingestion-pod
 
-This README provides an overview of the `dfo-customer-skydata-capt` dataflow job, explaining its components, functionality, and configuration.
+This README provides an overview of the `dataflow-cicd` dataflow job, explaining its components, functionality, and configuration.
 
 ## Overview
 
-The `dfo-customer-skydata-capt` dataflow job is designed to ingest data from Google Cloud Storage (GCS), validate the records against Avro schemas retrieved from Google Cloud Pub/Sub topics, and publish valid and invalid records to corresponding Pub/Sub topics. The job is built using Apache Beam and runs on Google Cloud Dataflow.
+The `dataflow-cicd` dataflow job is designed to ingest data from Google Cloud Storage (GCS), validate the records against Avro schemas retrieved from Google Cloud Pub/Sub topics, and publish valid and invalid records to corresponding Pub/Sub topics. The job is built using Apache Beam and runs on Google Cloud Dataflow.
 
 ## Components
 
@@ -73,4 +73,4 @@ Make sure you have the necessary credentials and access permissions to run the j
 
 ## Conclusion
 
-The `dfo-customer-skydata-capt` dataflow job efficiently ingests, validates, and processes data from GCS, using Google Cloud Pub/Sub for schema retrieval and record publishing. Its modular structure allows for easy customization and extension to handle various data sources and validation requirements, while the provided Dockerfile facilitates containerization for easy deployment and execution.
+The `dataflow-cicd` dataflow job efficiently ingests, validates, and processes data from GCS, using Google Cloud Pub/Sub for schema retrieval and record publishing. Its modular structure allows for easy customization and extension to handle various data sources and validation requirements, while the provided Dockerfile facilitates containerization for easy deployment and execution.

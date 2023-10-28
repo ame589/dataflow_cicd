@@ -1,0 +1,42 @@
+{
+    "job-configs":
+    {
+        "project": "your-project-id",
+        "runner": "DataflowRunner",
+        "streaming": true,
+        "job_name": "ingestion-pod",
+        "staging_location": "gs://your-bucket/staging",
+        "temp_location": "gs://your-bucket/temp",
+        "region": "europe-west1",
+        "network": "your-network",
+        "subnetwork": "https://www.googleapis.com/compute/v1/projects/your-project/regions/europe-west1/subnetworks/your-subnetwork",
+        "save_main_session": true,
+        "requirements_file": "./requirements.txt",
+        "max_num_workers": 1,
+        "enable_hot_key_logging": true,
+        "update": false,
+        "setup_file": "./setup.py",
+        "service_account_email": "your-SA",
+        "sdk_container_image": "europe-west1-docker.pkg.dev/your-project/your-repo/dataflow/your-image:1.3",
+        "sdk_location": "container",
+        "use_public_ips": false,
+        "log_level": "INFO"
+    },
+    "entities":
+    [
+        {
+            "account": {
+                "deduplicationAttributeId": "messageId",
+                "topic": "account-topic",
+                "dlqTopic": "account-dlq-topic",
+                "schema_id": "account-topic-schema",
+                "gcsEventSubscription": "account-topic-sub",
+                "source_bucket": "your-source-bucket-id",
+                "target_project": "your-target-project-id",
+                "target_bucket": "your-target-bucket-id",
+                "input_file_split_char": ":",
+                "input_file_split_char_entity_position": 2
+            }
+        }
+     ]
+}
