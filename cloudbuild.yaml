@@ -1,0 +1,55 @@
+options:
+  logging: CLOUD_LOGGING_ONLY
+  env:
+    - '_LOCATION=${_LOCATION}'
+    - 'PROJECT_ID=${PROJECT_ID}'
+    - '_REPO_NAME=${_REPO_NAME}'
+    - '_IMAGE_NAME=${_IMAGE_NAME}'
+    - '_CI_SERVICE_NAME=${_CI_SERVICE_NAME}'
+    - 'COMMIT_SHA=${COMMIT_SHA}'
+    - '_METADATA_TEMPLATE_FILE_PATH=${_METADATA_TEMPLATE_FILE_PATH}'
+    - '_SDK_LANGUAGE=${_SDK_LANGUAGE}'
+    - '_METADATA_FILE=${_METADATA_FILE}'
+    - '_TEMP_LOCATION=${_TEMP_LOCATION}'
+    - '_STAGING_LOCATION=${_STAGING_LOCATION}'
+    - '_CONFIGURATION_JSON_FILE=${_CONFIGURATION_JSON_FILE}'
+    - '_SERVICE_ACCOUNT=${_SERVICE_ACCOUNT}'
+    - '_SUBNETWORK=${_SUBNETWORK}'
+    - '_NETWORK=${_NETWORK}'
+    - '_MAX_WORKERS=${_MAX_WORKERS}'
+steps:
+- name: python:3.11-slim
+  id: 'unit_test'
+  args: [ "python", "-m", "unittest", "discover", "--verbose", "-s", "./tests/" ]
+- name: google/cloud-sdk:450.0.0-slim
+  id: 'create_custom_container'
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - |
+      cd custom-container
+      chmod +x ./build_custom_container.sh
+      ./build_custom_container.sh
+- name: 'gcr.io/cloud-builders/docker'
+  id: 'create_job_docker_image'
+  entrypoint: 'bash'
+  args: ["-c", "docker build --build-arg 'BASE_IMAGE=$_LOCATION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/$_IMAGE_NAME/$_CI_SERVICE_NAME-custom-container:$COMMIT_SHA' 
+  -t $_LOCATION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/$_IMAGE_NAME/$_CI_SERVICE_NAME:$COMMIT_SHA ."]
+- name: google/cloud-sdk:450.0.0-slim
+  id: 'create_flex_template_spec_file_gcs'
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - |
+      chmod +x ./scripts/create_flex_template_spec_file_gcs.sh
+      ./scripts/create_flex_template_spec_file_gcs.sh
+- name: google/cloud-sdk:450.0.0-slim
+  id: 'run_flex_template'
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - |
+      chmod +x ./scripts/run_dataflow_job.sh
+      ./scripts/run_dataflow_job.sh
+images:
+  - '$_LOCATION-docker.pkg.dev/$PROJECT_ID/$_REPO_NAME/$_IMAGE_NAME/$_CI_SERVICE_NAME:$COMMIT_SHA'
